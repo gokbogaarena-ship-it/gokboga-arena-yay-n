@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gökboğa Arena — Başkanlık Odası Test</title>
+<style>
+:root{color-scheme:dark;--bg:#082e32;--panel:#10484d;--accent:#59e1d1;--gold:#f3cf77}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#176269,var(--bg) 75%);font:16px system-ui,sans-serif;color:#f4ffff}
+header{padding:18px 20px;border-bottom:1px solid #ffffff2a;display:flex;justify-content:space-between;align-items:center;gap:12px}h1{font-size:clamp(19px,4vw,29px);margin:0;color:var(--gold)}.tag{font-size:12px;color:#ffdd97;border:1px solid #e5b762;padding:5px 8px;border-radius:20px}
+main{max-width:1150px;margin:auto;padding:16px}.notice{padding:13px;background:#4e3420;border:1px solid #a87c3d;border-radius:12px;margin-bottom:16px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.card{background:var(--panel);border:1px solid #4a8e91;border-radius:14px;padding:16px}.card strong{display:block;font-size:28px;color:var(--accent);margin-top:8px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}button,input,select,textarea{font:inherit;border-radius:10px}button{background:#155a60;color:white;border:1px solid #65b9b7;padding:10px 14px;cursor:pointer}button.active{background:var(--accent);color:#062d31;font-weight:700}button:focus-visible,input:focus-visible{outline:3px solid var(--gold)}button:disabled{opacity:.55;cursor:not-allowed}input,select,textarea{background:#092e32;color:white;border:1px solid #79aaa9;padding:10px;max-width:100%}section{background:#103d42;border:1px solid #497b80;border-radius:14px;padding:16px;margin-bottom:16px}section[hidden]{display:none}h2{font-size:20px;margin:0 0 14px}p{line-height:1.5}label{display:block;margin:8px 0}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}table{width:100%;border-collapse:collapse;min-width:560px}th,td{text-align:left;padding:10px;border-bottom:1px solid #ffffff29}th{color:var(--gold)}.scroll{overflow:auto}.status{font-size:12px;border:1px solid #84a9a8;border-radius:20px;padding:3px 7px;white-space:nowrap}footer{font-size:13px;color:#b6d7d8;text-align:center;padding:16px}
+@media(max-width:600px){header{align-items:flex-start;flex-direction:column}main{padding:10px}table{font-size:13px}}
+</style></head><body>
+<header><h1>🐂 GÖKBOĞA ARENA · BAŞKANLIK ODASI</h1><span class="tag">GÜVENLİ TEST ÖNİZLEMESİ</span></header>
+<main>
+<div class="notice" role="status"><b>Bu sayfa gerçek Başkan oturumu değildir.</b> Yönetim arayüzü geliştirme önizlemesidir. Oyuncu bilgileri, şikâyetler ve tutarlar örnektir; hiçbir işlem Supabase'e veya canlı oyuna gönderilmez. Gerçek Başkan yetkisi yalnız sunucuda doğrulanmalıdır.</div>
+<div class="grid" aria-label="Örnek gösterge paneli">
+<div class="card">Bekleyen şikâyet<strong id="pending">0</strong></div>
+<div class="card">İncelemede<strong id="reviewing">0</strong></div>
+<div class="card">Karar verilen<strong id="resolved">0</strong></div>
+<div class="card">Örnek gelir kaydı<strong>₺0</strong></div>
+</div>
+<nav aria-label="Yönetim bölümleri">
+<button class="active" data-tab="complaints">Nida Şikâyet</button>
+<button data-tab="players">Oyuncu Yönetimi</button>
+<button data-tab="ads">Reklam ve Duyuru</button>
+<button data-tab="revenue">Gelir Raporları</button>
+<button data-tab="nara">Nara Görevleri</button>
+<button data-tab="audit">İşlem Günlüğü</button>
+</nav>
+<section id="complaints"><h2>Nida Şikâyet Merkezi</h2>
+<div class="tools"><input id="search" aria-label="Şikâyet ara" placeholder="Kayıt numarası veya konu ara"><select id="filter" aria-label="Durum süz"><option value="">Tüm durumlar</option><option>Yeni</option><option>İnceleniyor</option><option>Karar Verildi</option></select></div>
+<div class="scroll"><table><thead><tr><th>Kayıt</th><th>Konu</th><th>Oyun</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p id="result" aria-live="polite"></p>
+</section>
+<section id="players" hidden><h2>Oyuncu Yönetimi</h2><p>Oyuncu arama, uyarı, susturma ve engelleme işlemleri için sunucu yetkisi, gerekçe ve denetim kaydı gerekir.</p><button disabled>Gerçek oyuncu araması — bağlantı bekliyor</button></section>
+<section id="ads" hidden><h2>Reklam ve Duyuru</h2><p>Normal duyuru ve ücretli Mega duyuru için ayrı yayın kuyrukları planlandı. Canlı yayına gönderme bu önizlemede kapalıdır.</p><label>Örnek duyuru metni <textarea id="announcement" rows="3" style="width:100%" maxlength="240" placeholder="Duyuru metni"></textarea></label><button id="preview">Önizle</button><p id="adpreview" aria-live="polite"></p></section>
+<section id="revenue" hidden><h2>Gelir Raporları</h2><p>Reklam ödemeleri, çip satışları, slot gelirleri ve iadeler ayrı kalemlerde izlenmeli. Gerçek finansal veriler bağlı değil.</p></section>
+<section id="nara" hidden><h2>Nara Görevleri</h2><p>Nara yalnız öneri ve taslak üretebilir; hesap engelleme, para hareketi ve ceza işlemleri Başkan onayı ve sunucu denetimi olmadan uygulanmamalıdır.</p></section>
+<section id="audit" hidden><h2>Önizleme İşlem Günlüğü</h2><div class="scroll"><table><thead><tr><th>Saat</th><th>İşlem</th></tr></thead><tbody id="log"></tbody></table></div><p>Bu günlük yalnız bu sayfa açıkken bellekte tutulur.</p></section>
+</main><footer>Gökboğa Arena · Test dalı · Gerçek Başkan hesabı veya canlı Supabase bağlantısı içermez.</footer>
+<script>
+"use strict";
+const tickets=[{id:"TEST-001",topic:"Sohbette hakaret",game:"101 Okey",status:"Yeni"},{id:"TEST-002",topic:"Şüpheli masa davranışı",game:"Tavla",status:"İnceleniyor"},{id:"TEST-003",topic:"Uygunsuz görsel",game:"Otağ",status:"Karar Verildi"}];
+const $=id=>document.getElementById(id);const events=[];
+function log(action){events.unshift({time:new Date().toLocaleTimeString("tr-TR"),action});$("log").replaceChildren(...events.map(e=>{const tr=document.createElement("tr");for(const value of [e.time,e.action]){const td=document.createElement("td");td.textContent=value;tr.append(td)}return tr}))}
+function render(){for(const [id,s] of [["pending","Yeni"],["reviewing","İnceleniyor"],["resolved","Karar Verildi"]])$(id).textContent=tickets.filter(t=>t.status===s).length;
+const q=$("search").value.trim().toLocaleLowerCase("tr-TR"),f=$("filter").value;const visible=tickets.filter(t=>(!f||t.status===f)&&(t.id.toLocaleLowerCase("tr-TR").includes(q)||t.topic.toLocaleLowerCase("tr-TR").includes(q)));
+$("rows").replaceChildren(...visible.map(t=>{const tr=document.createElement("tr");for(const v of [t.id,t.topic,t.game]){const td=document.createElement("td");td.textContent=v;tr.append(td)}const td=document.createElement("td");const badge=document.createElement("span");badge.className="status";badge.textContent=t.status;td.append(badge);tr.append(td);const actions=document.createElement("td");const btn=document.createElement("button");btn.textContent=t.status==="Yeni"?"İncelemeye Al":t.status==="İnceleniyor"?"Karar Verildi":"Tamamlandı";btn.disabled=t.status==="Karar Verildi";btn.addEventListener("click",()=>{t.status=t.status==="Yeni"?"İnceleniyor":"Karar Verildi";log(t.id+" örnek durum değişti: "+t.status);render()});actions.append(btn);tr.append(actions);return tr}));
+$("result").textContent=visible.length+" örnek kayıt gösteriliyor."}
+for(const b of document.querySelectorAll("nav button"))b.addEventListener("click",()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll("main section").forEach(x=>x.hidden=x.id!==b.dataset.tab)});
+$("search").addEventListener("input",render);$("filter").addEventListener("change",render);
+$("preview").addEventListener("click",()=>{$("adpreview").textContent="ÖNİZLEME: "+($("announcement").value.trim()||"Metin girilmedi.");log("Duyuru taslağı önizlendi")});
+render();
+</script></body></html>
