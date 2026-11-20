@@ -5,12 +5,13 @@ game.addEventListener("load",()=>{
  try{
   const doc=game.contentDocument;
   if(!doc||!doc.body||doc.getElementById("gokboga-v25-open"))return;
+  const art=doc.createElement("div");art.id="gokboga-v25-art";art.style.cssText="position:fixed;top:6px;left:50%;transform:translateX(-50%);width:min(30vw,210px);aspect-ratio:800/460;background:url('./onizleme-v25/gokboga-ozgun-bozkir.svg') center/contain no-repeat;pointer-events:none;z-index:2147483643;opacity:.92";doc.body.appendChild(art);
   const css=doc.createElement("link");css.rel="stylesheet";css.href="./onizleme-v25/gorsel-referans-modulleri.css";doc.head.appendChild(css);
   const style=doc.createElement("style");style.textContent=`#gokboga-v25-open{position:fixed;right:12px;bottom:12px;z-index:2147483644;border:2px solid #e9c879;border-radius:22px;background:#087c80;color:white;font-weight:800;padding:12px 16px;box-shadow:0 4px 16px #000a}#gokboga-v25-panel{position:fixed;inset:0;z-index:2147483645;background:#062e35;overflow:auto;display:none;color:white;font-family:system-ui}#gokboga-v25-panel.active{display:block}#gokboga-v25-close{position:sticky;top:4px;left:calc(100% - 145px);z-index:2147483646;background:#e7c677;color:#352407;border:0;border-radius:18px;padding:12px 16px;font-weight:800}#gokboga-v25-hub{padding:0 8px 15px}`;doc.head.appendChild(style);
   const launch=doc.createElement("button");launch.id="gokboga-v25-open";launch.type="button";launch.textContent="🎒 ÇANTA · VIP · ÖDÜLLER";doc.body.appendChild(launch);
   const inside=doc.createElement("div");inside.id="gokboga-v25-panel";inside.setAttribute("role","dialog");inside.setAttribute("aria-label","Gökboğa Arena ek bölümler");doc.body.appendChild(inside);
   const back=doc.createElement("button");back.id="gokboga-v25-close";back.type="button";back.textContent="✕ OYUNA DÖN";inside.appendChild(back);
-  const hub=doc.createElement("div");hub.id="gokboga-v25-hub";inside.appendChild(hub);
+  const hero=doc.createElement("img");hero.src="./onizleme-v25/gokboga-ozgun-bozkir.svg";hero.alt="Gökboğa Arena özgün altın boğa ve bozkır görseli";hero.style.cssText="display:block;width:min(100%,540px);height:auto;margin:6px auto 10px;border-radius:18px";inside.appendChild(hero);const hub=doc.createElement("div");hub.id="gokboga-v25-hub";inside.appendChild(hub);
   GokbogaHub.create(hub,{vipLevel:0});
   const show=v=>{inside.classList.toggle("active",v);launch.setAttribute("aria-expanded",String(v));};
   launch.addEventListener("click",()=>show(true));back.addEventListener("click",()=>show(false));
